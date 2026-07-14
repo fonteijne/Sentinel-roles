@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sentinel — AI agents for Jira delivery teams</title>
+  <meta name="description" content="Sentinel runs a governed multi-agent delivery pipeline from Jira: intake, analysis, build, review, QA, deployment and release. Join the waitlist." />
+  <meta property="og:title" content="Sentinel — Ship Jira work with governed AI agents" />
+  <meta property="og:description" content="A self-hosted multi-agent platform for Jira-based software delivery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #08090a; --panel: #0f1011; --surface: rgba(255,255,255,.04);
+      --surface-2: rgba(255,255,255,.07); --line: rgba(255,255,255,.08);
+      --line-soft: rgba(255,255,255,.05); --text: #f7f8f8; --muted: #8a8f98;
+      --body: #d0d6e0; --brand: #5e6ad2; --brand-2: #828fff; --ok: #10b981;
+      --danger: #f87171;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-feature-settings: 'cv01', 'ss03'; color: var(--text); background: var(--bg);
+      min-height: 100vh; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: -30% -10% auto; height: 680px; pointer-events: none; z-index: -2;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(113,112,255,.28), transparent 32%),
+        radial-gradient(circle at 78% 12%, rgba(16,185,129,.12), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,.06), transparent 62%);
+      filter: blur(4px);
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1; opacity: .22;
+      background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 48px 48px; mask-image: linear-gradient(to bottom, #000 0%, transparent 72%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1180px, calc(100vw - 36px)); margin: 0 auto; }
+    .nav { height: 74px; display:flex; align-items:center; justify-content:space-between; gap: 18px; }
+    .brand { display:flex; align-items:center; gap: 10px; font-weight: 590; letter-spacing: -.02em; }
+    .mark { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 10px; display:grid; place-items:center; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.015)); box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
+    .mark svg { width: 19px; height: 19px; }
+    .links { display:flex; align-items:center; gap: 22px; color: var(--body); font-size: 13px; font-weight: 510; }
+    .links a:hover { color: var(--text); }
+    .nav-cta { padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.025); }
+    .hero { padding: 82px 0 74px; text-align:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap: 8px; padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--body); background: rgba(255,255,255,.025); font-size: 12px; font-weight: 510; }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 5px rgba(16,185,129,.13); }
+    h1 { max-width: 980px; margin: 24px auto 20px; font-size: clamp(48px, 8vw, 86px); line-height: .94; letter-spacing: -0.06em; font-weight: 510; }
+    .lead { max-width: 760px; margin: 0 auto 30px; color: var(--body); font-size: clamp(17px, 2vw, 21px); line-height: 1.58; letter-spacing: -.01em; }
+    .waitlist { margin: 0 auto; width: min(620px, 100%); display:flex; gap: 10px; padding: 8px; border: 1px solid var(--line); border-radius: 16px; background: rgba(15,16,17,.84); box-shadow: 0 20px 80px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.05); backdrop-filter: blur(14px); }
+    .waitlist input { flex: 1; min-width: 0; border: 0; outline: 0; color: var(--text); background: transparent; padding: 0 12px; font: 400 16px/48px 'Inter', sans-serif; }
+    .waitlist input::placeholder { color: #62666d; }
+    .waitlist button { border: 0; cursor:pointer; color:white; padding: 0 20px; min-height: 48px; border-radius: 10px; background: linear-gradient(180deg, var(--brand-2), var(--brand)); font: 590 14px/1 'Inter', sans-serif; box-shadow: 0 10px 28px rgba(94,106,210,.35); }
+    .waitlist button:hover { filter: brightness(1.08); }
+    .form-note { min-height: 22px; margin: 13px 0 0; color: var(--muted); font-size: 13px; }
+    .form-note.ok { color: #86efac; } .form-note.err { color: var(--danger); }
+    .proof { display:flex; justify-content:center; flex-wrap:wrap; gap: 12px; margin-top: 26px; color: var(--muted); font-size: 13px; }
+    .proof span { padding: 7px 10px; border: 1px solid var(--line-soft); border-radius: 999px; background: rgba(255,255,255,.02); }
+    .product { position: relative; margin: 34px auto 0; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); box-shadow: 0 34px 120px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08); overflow: hidden; text-align: left; }
+    .windowbar { height: 46px; display:flex; align-items:center; gap: 8px; padding: 0 18px; border-bottom: 1px solid var(--line-soft); background: rgba(255,255,255,.025); }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #34343a; }
+    .dash { display:grid; grid-template-columns: 260px 1fr; min-height: 420px; }
+    .side { padding: 22px; border-right: 1px solid var(--line-soft); background: rgba(0,0,0,.16); }
+    .side h3, .main h3 { margin: 0 0 16px; font-size: 12px; color: #62666d; text-transform: uppercase; letter-spacing: .12em; font-weight: 590; }
+    .role { display:flex; align-items:center; justify-content:space-between; gap: 10px; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.045); color: var(--body); font-size: 13px; }
+    .role b { color: var(--text); font-weight: 510; }
+    .badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #a5b4fc; }
+    .main { padding: 22px; }
+    .pipeline { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .card { min-height: 132px; padding: 15px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.032); }
+    .card strong { display:block; font-size: 15px; letter-spacing: -.01em; margin-bottom: 8px; }
+    .card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .rail { margin-top: 18px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: rgba(0,0,0,.18); font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a7f3d0; line-height: 1.8; }
+    .features { display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 80px 0; }
+    .feature { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.025); }
+    .feature h2 { margin: 16px 0 8px; font-size: 20px; letter-spacing: -.02em; font-weight: 590; }
+    .feature p { margin: 0; color: var(--muted); line-height: 1.62; font-size: 14px; }
+    .icon { width: 38px; height: 38px; border-radius: 12px; display:grid; place-items:center; color: #c7d2fe; border: 1px solid var(--line); background: rgba(94,106,210,.14); }
+    .closing { padding: 10px 0 88px; text-align:center; }
+    .closing h2 { margin: 0 auto 14px; max-width: 720px; font-size: clamp(32px, 5vw, 56px); line-height: 1; letter-spacing: -.045em; font-weight: 510; }
+    .closing p { color: var(--body); margin: 0 auto 24px; max-width: 640px; line-height: 1.6; }
+    footer { border-top: 1px solid var(--line-soft); padding: 24px 0 34px; color: #62666d; font-size: 13px; }
+    @media (max-width: 860px) {
+      .links a:not(.nav-cta) { display:none; } .hero { padding-top: 48px; } .waitlist { flex-direction:column; } .waitlist input { min-height: 48px; }
+      .dash { grid-template-columns: 1fr; } .side { border-right: 0; border-bottom: 1px solid var(--line-soft); } .pipeline { grid-template-columns: 1fr; } .features { grid-template-columns: 1fr; padding: 52px 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="shell nav" aria-label="Primary">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.8-2.8 8.4-7 10-4.2-1.6-7-5.2-7-10V6l7-3z" stroke="#f7f8f8" stroke-width="1.7"/><path d="M8 12l2.4 2.4L16.5 8" stroke="#828fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Sentinel</a>
+    <div class="links"><a href="#platform">Platform</a><a href="#why">Why Sentinel</a><a href="/features">Merged features</a><a class="nav-cta" href="#waitlist">Join waitlist</a></div>
+  </nav>
+  <main id="top">
+    <section class="shell hero">
+      <div class="eyebrow"><span class="pulse"></span>Private beta opening soon · self-hosted for Jira teams</div>
+      <h1>Turn Jira into an autonomous delivery floor.</h1>
+      <p class="lead">Sentinel coordinates specialist AI agents across intake, analysis, implementation, security review, QA, deployment and release — with Jira as the source of truth and humans in control of every gate.</p>
+      <form id="waitlist" class="waitlist" action="/waitlist" method="post">
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required />
+        <button type="submit">Request access</button>
+      </form>
+      <p id="form-note" class="form-note">No spam. We’ll email you when the private beta opens.</p>
+      <div class="proof"><span>13 role pipeline</span><span>Jira Server / DC</span><span>LiteLLM compatible</span><span>No database required</span></div>
+      <div id="platform" class="product" aria-label="Sentinel product preview">
+        <div class="windowbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="dash">
+          <aside class="side"><h3>Active agents</h3>
+            <div class="role"><span><b>03</b> Business Analyst</span><span class="badge">SENT-42</span></div>
+            <div class="role"><span><b>07</b> Implementer</span><span class="badge">coding</span></div>
+            <div class="role"><span><b>08</b> Code Reviewer</span><span class="badge">gate</span></div>
+            <div class="role"><span><b>10</b> QA</span><span class="badge">evidence</span></div>
+            <div class="role"><span><b>12</b> Release</span><span class="badge">human</span></div>
+          </aside>
+          <section class="main"><h3>Governed workflow</h3>
+            <div class="pipeline">
+              <div class="card"><strong>Intake → Brief</strong><p>Agents clarify scope, assumptions and acceptance criteria before work starts.</p></div>
+              <div class="card"><strong>Build → Review</strong><p>Implementation and security gates exchange structured handoff payloads.</p></div>
+              <div class="card"><strong>Deploy → QA</strong><p>Evidence bundles, smoke tests and findings stay attached to the Jira issue.</p></div>
+              <div class="card"><strong>Release</strong><p>Production remains explicitly gated by human release windows.</p></div>
+            </div>
+            <div class="rail">agent_handoff: pass<br/>checklist: CR-1 evidence attached<br/>assumptions: []<br/>next_status: Internal Review Accepted</div>
+          </section>
+        </div>
+      </div>
+    </section>
+    <section id="why" class="shell features">
+      <article class="feature"><div class="icon">01</div><h2>Control, not chaos</h2><p>The orchestrator enforces leases, WIP limits, retries and rework loops so agents cannot stampede your board.</p></article>
+      <article class="feature"><div class="icon">02</div><h2>Contracts in code</h2><p>Every transition must carry schema-valid YAML evidence. Bad handoffs are blocked and surfaced for humans.</p></article>
+      <article class="feature"><div class="icon">03</div><h2>Fits your stack</h2><p>Runs in one Docker container, talks to Jira Server/DC and routes model calls through your LiteLLM gateway.</p></article>
+    </section>
+    <section class="shell closing"><h2>Bring governed autonomy to your delivery pipeline.</h2><p>Join the waitlist for early access, setup guidance and implementation notes for your Jira workflow.</p><div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;"><a class="nav-cta" href="#waitlist">Get on the list</a><a class="nav-cta" href="/features">See merged features</a></div></section>
+  </main>
+  <footer><div class="shell">© Sentinel · Built for teams who need AI speed with delivery discipline.</div></footer>
+  <script>
+    const form = document.getElementById('waitlist');
+    const note = document.getElementById('form-note');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const button = form.querySelector('button');
+      const email = document.getElementById('email').value;
+      button.disabled = true; button.textContent = 'Joining…'; note.className = 'form-note'; note.textContent = 'Saving your spot…';
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwllMMYdEXz3qNB8Udpqoi6a2U5JaxCMm-WxpZB6cxzny5VvT-F1WnrfpZ8FINH4Ulp/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ email, source: 'sentinel-vercel' })
+        });
+        const data = await response.json();
+        if (!data.ok) throw new Error(data.error || 'Could not join the waitlist.');
+        note.className = 'form-note ok';
+        note.textContent = data.created ? `You're in — spot #${data.position} is reserved.` : `You're already on the list at spot #${data.position}.`;
+        button.textContent = 'Joined';
+      } catch (error) {
+        note.className = 'form-note err'; note.textContent = error.message;
+        button.disabled = false; button.textContent = 'Request access';
+      }
+    });
+  </script>
+</body>
+</html>

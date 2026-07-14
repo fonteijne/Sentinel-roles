@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sentinel — Merged features</title>
+  <meta name="description" content="Recently merged Sentinel platform features from the repository default branch." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#08090a; --panel:#0f1011; --surface:rgba(255,255,255,.04); --line:rgba(255,255,255,.08); --line-soft:rgba(255,255,255,.05); --text:#f7f8f8; --muted:#8a8f98; --body:#d0d6e0; --brand:#5e6ad2; --brand-2:#828fff; --ok:#10b981; }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; }
+    body { margin:0; font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text); background:var(--bg); min-height:100vh; overflow-x:hidden; }
+    body::before { content:''; position:fixed; inset:-30% -10% auto; height:680px; pointer-events:none; z-index:-2; background:radial-gradient(circle at 50% 20%, rgba(113,112,255,.28), transparent 32%), radial-gradient(circle at 78% 12%, rgba(16,185,129,.12), transparent 24%), linear-gradient(180deg, rgba(255,255,255,.06), transparent 62%); filter:blur(4px); }
+    body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:-1; opacity:.22; background-image:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size:48px 48px; mask-image:linear-gradient(to bottom, #000 0%, transparent 72%); }
+    a { color:inherit; text-decoration:none; } .shell { width:min(1180px, calc(100vw - 36px)); margin:0 auto; }
+    .nav { height:74px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:590; letter-spacing:-.02em; }
+    .mark { width:34px; height:34px; border:1px solid var(--line); border-radius:10px; display:grid; place-items:center; background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.015)); box-shadow:inset 0 1px 0 rgba(255,255,255,.08); }
+    .mark svg { width:19px; height:19px; } .links { display:flex; align-items:center; gap:22px; color:var(--body); font-size:13px; font-weight:510; } .links a:hover { color:var(--text); }
+    .nav-cta { padding:9px 13px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.025); }
+    .hero { padding:78px 0 42px; text-align:center; } .eyebrow { display:inline-flex; align-items:center; gap:8px; padding:7px 11px; border:1px solid var(--line); border-radius:999px; color:var(--body); background:rgba(255,255,255,.025); font-size:12px; font-weight:510; }
+    .pulse { width:8px; height:8px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 5px rgba(16,185,129,.13); }
+    h1 { max-width:980px; margin:24px auto 20px; font-size:clamp(42px, 7vw, 78px); line-height:.96; letter-spacing:-.06em; font-weight:510; }
+    .lead { max-width:760px; margin:0 auto 30px; color:var(--body); font-size:clamp(17px,2vw,21px); line-height:1.58; letter-spacing:-.01em; }
+    .summary { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:20px auto 56px; }
+    .stat,.feature-card { border:1px solid var(--line); border-radius:18px; background:rgba(255,255,255,.025); box-shadow:inset 0 1px 0 rgba(255,255,255,.04); }
+    .stat { padding:18px; } .stat b { display:block; font-size:26px; letter-spacing:-.04em; } .stat span { color:var(--muted); font-size:13px; }
+    .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; padding-bottom:80px; } .feature-card { padding:22px; }
+    .feature-card h2 { margin:14px 0 10px; font-size:21px; letter-spacing:-.025em; font-weight:590; } .feature-card p { margin:0; color:var(--body); font-size:14px; line-height:1.65; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; color:#a5b4fc; font-family:'JetBrains Mono',monospace; font-size:11px; }
+    footer { border-top:1px solid var(--line-soft); color:var(--muted); font-size:13px; padding:28px 0 44px; }
+    @media (max-width:860px) { .links a:not(.nav-cta) { display:none; } .hero { padding-top:48px; } .summary,.grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="shell nav" aria-label="Primary">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.8-2.8 8.4-7 10-4.2-1.6-7-5.2-7-10V6l7-3z" stroke="#f7f8f8" stroke-width="1.7"/><path d="M8 12l2.4 2.4L16.5 8" stroke="#828fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Sentinel</a>
+    <div class="links"><a href="/">Home</a><a href="/#platform">Platform</a><a href="/#waitlist" class="nav-cta">Join waitlist</a></div>
+  </nav>
+  <main>
+    <section class="shell hero">
+      <div class="eyebrow"><span class="pulse"></span>Synced from claude/documentation-git-push-lv1moq · fcb808d74363</div>
+      <h1>Merged platform features now in Sentinel.</h1>
+      <p class="lead">A live changelog of the meaningful features that reached the repository default branch and are reflected by the deployed site sync.</p>
+    </section>
+    <section class="shell summary" aria-label="Feature summary">
+      <div class="stat"><b>18</b><span>recent merged changes shown</span></div>
+      <div class="stat"><b>/metrics</b><span>observability and backlog signals</span></div>
+      <div class="stat"><b>Jira</b><span>leases, retries and handoff validation</span></div>
+      <div class="stat"><b>Human gates</b><span>pause, escalation and release control</span></div>
+    </section>
+    <section class="shell grid" aria-label="Merged features">
+      
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-14</span><span>f757633</span></div>
+        <h2>Re-alert on escalations a human has left frozen</h2>
+        <p>ORC-1&#x27;s promise is that no ticket is ever silently stuck, but escalation alerts fire exactly once when a ticket freezes. If the human never acts, the ticket sits `needs-human` forever with no further signal — the one hole in &quot;nothing silently stuck.&quot; (The new needs_human_tickets gauge shows a count, but nothing re-surfaces the specific abandoned ticket.)</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-14</span><span>9a5f7b6</span></div>
+        <h2>Expose pipeline backlog as /metrics board gauges</h2>
+        <p>The metrics endpoint had process counters and gauges, but nothing about the pipeline&#x27;s actual throughput: how deep each stage&#x27;s queue is, or how many tickets are frozen waiting on a human. Those are exactly the signals an operator alerts on — a growing Rework/To-Do backlog, or escalations piling up unresolved — and they were observable nowhere.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-14</span><span>016ffaa</span></div>
+        <h2>Release in-flight leases on shutdown instead of stranding tickets</h2>
+        <p>On SIGTERM/redeploy the orchestrator cancels its running agent tasks, but two gaps left tickets frozen for the full stale-lease timeout (~30 min) afterwards:</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>df32fc9</span></div>
+        <h2>Add a Prometheus /metrics endpoint for observability</h2>
+        <p>/health is a point-in-time snapshot: it can&#x27;t tell you the dispatch rate, how often the pipeline escalates to humans, or whether sweeps have been quietly failing over the last hour. For a system meant to run unattended, that trend visibility is what makes it monitorable and alertable — and it was missing.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>25eda8b</span></div>
+        <h2>Harden control-plane auth: constant-time check, header support</h2>
+        <p>The four mutating endpoints (/webhook/jira, /sweep, /pause, /resume) can freeze or nudge the whole pipeline, but each authenticated with a duplicated `token != WEBHOOK_SECRET` check. Three problems: the comparison is not constant-time (a timing side-channel that leaks the secret byte by byte); the secret was only accepted as a URL query param, so it lands in access logs, proxies and browser history; and the logic was copy-pasted four times. Adding /pause and /resume earlier widened the blast radius — the same shared token now freezes the entire pipeline.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>08c5629</span></div>
+        <h2>Rotate the audit log so it can&#x27;t fill the data volume</h2>
+        <p>The audit trail (audit.jsonl) is append-only and written from the orchestrator&#x27;s and agents&#x27; hot paths — dispatch, escalation, transitions, reclaims (21 call sites). It lives on the same fixed /data volume as the agent workspaces and the pause-state file, with no rotation. In a continuously-running deployment it grows without bound until the volume fills, at which point record() raises OSError inside those hot paths (a crashed sweep, a crashed agent run, cascading retries). For a platform whose whole traceability story is this file, that is a real operational failure mode.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>9d7d340</span></div>
+        <h2>Retry transient Jira failures with backoff instead of failing hard</h2>
+        <p>Jira is the platform&#x27;s single source of truth and its most-called dependency — dozens of calls per agent run — yet the client had no retry at all, while the LLM client already retried 3x. Jira Server/DC routinely returns 429 (rate limiting) and 502/503/504 (GC pauses, reindexing, reverse-proxy failover). Every such blip either wasted agent turns, skewed lease timing, or counted toward the orchestrator&#x27;s &quot;degraded&quot; health threshold — two transient blips during sweeps would flag the whole platform degraded while Jira was actually fine.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>d924cf5</span></div>
+        <h2>Add outbound alerting: notify a webhook when the pipeline needs a human</h2>
+        <p>The pipeline freezes tickets for a human constantly — missing project commands, ambiguity, rework loops, repeated crashes, invalid transitions — but the only signal was a Jira comment plus the needs-human label. Someone had to be watching the board; an autonomous system that escalates and tells no one is a real operational gap (the README and _INDEX both called it out as &quot;wire it yourself&quot;).</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>74456f9</span></div>
+        <h2>Add global pipeline pause: an operational kill-switch</h2>
+        <p>The only levers to stop work were the per-ticket `needs-human` label or killing the container. Neither is a whole-pipeline emergency stop: during an incident or a bad model rollout an operator had to label every in-flight ticket, and a container restart would silently resume dispatching.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>58fa71a</span></div>
+        <h2>Add attachment support: the missing evidence channel</h2>
+        <p>Universal rule 5 (evidence over assertion) demands screenshots and file evidence throughout the pipeline — QA&#x27;s visual gate, Intake&#x27;s raw-ticket attachments, the client review packet — but agents had no way to see, read, or upload Jira attachments.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>de69ab0</span></div>
+        <h2>Add CLAUDE.md pointing agents to _INDEX.md for project context</h2>
+        <p> Claude Fable 5 &lt;noreply@anthropic.com&gt; Claude-Session: https://claude.ai/code/session_013k4beSLNnM4UmMwAaSxJc1</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>0bb4fee</span></div>
+        <h2>Add _INDEX.md: project analysis index for onboarding AI agents</h2>
+        <p>Single-file orientation document covering architecture, file map, pipeline table, agent tools, state model, payload schemas, configuration, run/test instructions, and design invariants.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>11f706f</span></div>
+        <h2>Fix workspace containment check in run_command</h2>
+        <p>The cwd guard used str.startswith(), which accepts sibling directories sharing the workspace&#x27;s string prefix (workspace &#x27;07&#x27; vs &#x27;07-evil&#x27;) — the classic path-prefix bug in a security-relevant check. Replaced with Path.is_relative_to().</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>5d707c3</span></div>
+        <h2>Verify workflow edge exists before posting handoff payloads</h2>
+        <p>transition_with_handoff posted the handoff comment and only then discovered whether the Jira workflow allows the transition. A missing workflow edge (statuses exist but the transition between them was never configured — a misconfiguration doctor cannot detect, since it checks statuses, not edges) left an orphaned agent_handoff comment on an unmoved ticket, once per retry. The transition pre-flight now checks the target is reachable via the workflow&#x27;s available transitions before anything is written, and the error names the available targets so the agent can escalate the misconfiguration precisely.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>6ec27f2</span></div>
+        <h2>Surface sweep failures as &#x27;degraded&#x27; health, pin dependency majors</h2>
+        <p>An expired PAT or unreachable Jira made sweeps fail forever while /health kept reporting ok — invisible to monitoring. The orchestrator now tracks consecutive sweep failures and the last error; /health flips to &#x27;degraded&#x27; after two consecutive failures and exposes both fields.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-13</span><span>b90b5ea</span></div>
+        <h2>Make rework counting idempotent across router retries</h2>
+        <p>increment_rework bumped the counter on every call: if a Rework Router run crashed or hit the turn cap after incrementing but before transitioning, the orchestrator&#x27;s retry counted the same rejection again — phantom bounces that trip the loop-breaker (rework_count &gt; 2) early and freeze tickets that only actually bounced once. The rework state now records the comment id of the counted rejection payload and skips re-counting it, reporting already_counted to the agent instead.</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-12</span><span>50921a6</span></div>
+        <h2>Heartbeat queue-claimed leases, test the queue-role flow end to end</h2>
+        <p>The heartbeat task only ran for ticket-scoped roles, so tickets claimed mid-run by queue roles (Planner, Deployment, Release) via claim_ticket never got heartbeats — a deploy or release batch running past the 30-minute lease timeout would have its leases reclaimed by the sweep while still working. The heartbeat loop now refreshes every lease the run holds, and drops a ticket from the run&#x27;s holdings if its lease was taken over (humans win).</p>
+      </article>
+      <article class="feature-card">
+        <div class="meta"><span>2026-07-12</span><span>6a69bdd</span></div>
+        <h2>Pre-flight rejections before posting, test lease protocol</h2>
+        <p>reject_to_rework posted the rework findings comment before validating the agent_handoff payload: an invalid handoff left an orphaned rejection payload on a ticket that never transitioned, and the retry posted a duplicate that the Rework Router would later parse. The transition pre-flight (ownership, schema, ticket/status consistency) is now a shared helper run for BOTH payloads before anything is written to Jira.</p>
+      </article>
+    </section>
+  </main>
+  <footer><div class="shell">Latest: Re-alert on escalations a human has left frozen · Commit f757633 · Generated from the default branch during Vercel sync.</div></footer>
+</body>
+</html>
